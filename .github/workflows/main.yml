@@ -1,0 +1,25 @@
+name: Deploy via FTP
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+    - name: FTP Deploy WP Theme
+      uses: SamKirkland/FTP-Deploy-Action@4.3.2
+      with:
+        server: SERVER 
+        username: USERNAME
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: THEME DIRECTORY
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
